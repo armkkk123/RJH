@@ -1516,7 +1516,7 @@ function Library.new(config)
 				pcall(function()
 					Twen:Create(DropdownFrame,TweenInfo.new(0.15),{
 						Position = UDim2.fromOffset(Locked.AbsolutePosition.X + 5,Locked.AbsolutePosition.Y + (DropdownFrame.AbsoluteSize.Y / 1.5)),
-						Size = UDim2.fromOffset(Locked.AbsoluteSize.X,150)
+						Size = UDim2.fromOffset(Locked.AbsoluteSize.X, 280)
 					}):Play()
 				end)
 
@@ -1977,7 +1977,7 @@ function Library.new(config)
 			SectionAutoUI.Parent = Section
 			SectionAutoUI.HorizontalAlignment = Enum.HorizontalAlignment.Center
 			SectionAutoUI.SortOrder = Enum.SortOrder.LayoutOrder
-			SectionAutoUI.Padding = UDim.new(0, 2)
+			SectionAutoUI.Padding = UDim.new(0, 8)
 
 			SectionAutoUI:GetPropertyChangedSignal('AbsoluteContentSize'):Connect(function()
 				Twen:Create(Section,TweenInfo.new(0.1),{
