@@ -952,7 +952,7 @@ function Library.new(config)
 		Library.GradientImage(MainFrame,color)
 	end
 
-	Twen:Create(MainFrame,TweenInfo1,{BackgroundTransparency = 0.4,Size = config.Size}):Play();
+	Twen:Create(MainFrame,TweenInfo1,{BackgroundTransparency = 0.2,Size = config.Size}):Play();
 
 	WindowTable.ElBlurUI = ElBlurSource.new(MainFrame);
 
@@ -989,29 +989,6 @@ function Library.new(config)
 	MainDropShadow.Rotation = 0.0001;
 
 	Twen:Create(MainDropShadow,TweenInfo2,{ImageTransparency = 0.6}):Play();
-
-	-- ▂▂ HEADER BACKGROUND (Profile + Title only, NOT tabs) ▂▂▂
-	local HeaderBg = Instance.new("Frame")
-	HeaderBg.Name = "HeaderBg"
-	HeaderBg.Parent = MainFrame
-	HeaderBg.BackgroundColor3 = Color3.fromRGB(30, 20, 40)
-	HeaderBg.BackgroundTransparency = 0.55
-	HeaderBg.BorderColor3 = Color3.fromRGB(0, 0, 0)
-	HeaderBg.BorderSizePixel = 0
-	HeaderBg.Position = UDim2.new(0.02, 0, 0, 2)
-	HeaderBg.Size = UDim2.new(0.96, 0, 0, 68)
-	HeaderBg.ZIndex = 0
-	HeaderBg.Active = false
-
-	local HeaderBgCorner = Instance.new("UICorner")
-	HeaderBgCorner.CornerRadius = UDim.new(0, 6)
-	HeaderBgCorner.Parent = HeaderBg
-
-	local HeaderBgStroke = Instance.new("UIStroke")
-	HeaderBgStroke.Color = Color3.fromRGB(80, 60, 100)
-	HeaderBgStroke.Thickness = 1
-	HeaderBgStroke.Transparency = 0.6
-	HeaderBgStroke.Parent = HeaderBg
 
 	local ProfileFrame = Instance.new("Frame")
 	local AvatarImage = Instance.new("ImageLabel")
