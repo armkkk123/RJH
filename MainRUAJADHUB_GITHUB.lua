@@ -299,7 +299,7 @@ local function gridScale(value) return math.floor(value / Theme.GRID) * Theme.GR
 function Library.new(config)
 	local isMobile = game:GetService("UserInputService").TouchEnabled and not game:GetService("UserInputService").KeyboardEnabled
 	local camera = workspace.CurrentCamera
-	local defaultSize = UDim2.new(0, 440, 0, 550)
+	local defaultSize = UDim2.new(0, 584, 0, 600)
 
 	if isMobile and camera then
 		defaultSize = UDim2.new(0, gridScale(camera.ViewportSize.X * 0.86), 0, gridScale(camera.ViewportSize.Y * 0.86))
