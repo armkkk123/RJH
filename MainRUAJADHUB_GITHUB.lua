@@ -1670,7 +1670,8 @@ function Library.new(config)
 		TabButton.BorderSizePixel = 0
 		TabButton.ClipsDescendants = true
 		
-		local hasIcon = cfg.Icon and cfg.Icon ~= "" and cfg.Icon ~= "none"
+		-- Completely ignore icon: always hide
+		local hasIcon = false
 		local TextService = game:GetService("TextService")
 		local titleBounds = TextService:GetTextSize(cfg.Title, 13, Enum.Font.GothamBold, Vector2.new(9999, 9999))
 		local desiredWidth = math.max(90, titleBounds.X + (hasIcon and 50 or 30)) 
