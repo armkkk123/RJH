@@ -873,7 +873,7 @@ function Library.new(config)
 	-- [DeepSeek] UIAspectRatioConstraint: ป้องกัน UI บิดเบี้ยวบนหน้าจอที่ scale ต่างกัน
 	local MainAspectRatio = Instance.new("UIAspectRatioConstraint")
 	MainAspectRatio.Parent = MainFrame
-	MainAspectRatio.AspectRatio = 0.8 -- 440/550 vertical
+	MainAspectRatio.AspectRatio = config.Size.X.Offset / config.Size.Y.Offset
 	MainAspectRatio.DominantAxis = Enum.DominantAxis.Width
 	MainAspectRatio.AspectType = Enum.AspectType.ScaleWithParentSize
 
