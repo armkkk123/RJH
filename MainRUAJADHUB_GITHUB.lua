@@ -1000,14 +1000,15 @@ function Library.new(config)
 	ProfileFrame.Parent = MainFrame
 	ProfileFrame.BackgroundColor3 = Color3.fromRGB(0, 0, 0)
 	ProfileFrame.BackgroundTransparency = 1.000
-	ProfileFrame.Position = UDim2.new(0, 10, 0, 6)
-	ProfileFrame.Size = UDim2.new(0, 65, 0, 70)
+	ProfileFrame.Position = UDim2.new(0, 8, 0, 5)
+	ProfileFrame.Size = UDim2.new(0, 90, 0, 68)
+	ProfileFrame.ClipsDescendants = false
 	
 	AvatarImage.Name = "AvatarImage"
 	AvatarImage.Parent = ProfileFrame
 	AvatarImage.BackgroundColor3 = Color3.fromRGB(40, 40, 40)
 	AvatarImage.BackgroundTransparency = 0.5
-	AvatarImage.Size = UDim2.new(0, 42, 0, 42)
+	AvatarImage.Size = UDim2.new(0, 40, 0, 40)
 	AvatarImage.Position = UDim2.new(0.5, 0, 0, 0)
 	AvatarImage.AnchorPoint = Vector2.new(0.5, 0)
 	AvatarMask.CornerRadius = UDim.new(1, 0)
@@ -1021,21 +1022,23 @@ function Library.new(config)
 	NameText.Name = "NameText"
 	NameText.Parent = ProfileFrame
 	NameText.BackgroundTransparency = 1.000
-	NameText.Position = UDim2.new(0, 0, 0, 44)
-	NameText.Size = UDim2.new(1, 0, 0, 14)
-	NameText.Font = Theme.Fonts.Body
+	NameText.Position = UDim2.new(0.5, 0, 0, 42)
+	NameText.AnchorPoint = Vector2.new(0.5, 0)
+	NameText.Size = UDim2.new(1, 10, 0, 14)
+	NameText.Font = Theme.Fonts.Title
 	NameText.Text = LocalPlayer.DisplayName
 	NameText.TextColor3 = Theme.Colors.Text
 	NameText.TextTransparency = 0.1
-	NameText.TextSize = 11.000
+	NameText.TextSize = 12.000
 	NameText.TextXAlignment = Enum.TextXAlignment.Center
 	NameText.TextTruncate = Enum.TextTruncate.AtEnd
     
 	NameGreeting.Name = "NameGreeting"
 	NameGreeting.Parent = ProfileFrame
 	NameGreeting.BackgroundTransparency = 1.000
-	NameGreeting.Position = UDim2.new(0, 0, 0, 58)
-	NameGreeting.Size = UDim2.new(1, 0, 0, 12)
+	NameGreeting.Position = UDim2.new(0.5, 0, 0, 55)
+	NameGreeting.AnchorPoint = Vector2.new(0.5, 0)
+	NameGreeting.Size = UDim2.new(1, 10, 0, 12)
 	NameGreeting.Font = Theme.Fonts.Body
 	NameGreeting.Text = "@" .. LocalPlayer.Name
 	NameGreeting.TextColor3 = Theme.Colors.Text
@@ -1050,8 +1053,8 @@ function Library.new(config)
 	Title.BackgroundTransparency = 1.000
 	Title.BorderColor3 = Color3.fromRGB(0, 0, 0)
 	Title.BorderSizePixel = 0
-	Title.Position = UDim2.new(0, 175, 0, 12)
-	Title.Size = UDim2.new(1, -250, 0, 24)
+	Title.Position = UDim2.new(0, 100, 0, 12)
+	Title.Size = UDim2.new(1, -175, 0, 24)
 	Title.Font = Theme.Fonts.Title
 	Title.Text = config.Title
 	Title.TextColor3 = Theme.Colors.Text
@@ -1073,8 +1076,8 @@ function Library.new(config)
 	Description.BackgroundTransparency = 1.000
 	Description.BorderColor3 = Color3.fromRGB(0, 0, 0)
 	Description.BorderSizePixel = 0
-	Description.Position = UDim2.new(0, 175, 0, 36)
-	Description.Size = UDim2.new(1, -250, 0, 28)
+	Description.Position = UDim2.new(0, 100, 0, 36)
+	Description.Size = UDim2.new(1, -175, 0, 28)
 	Description.Font = Theme.Fonts.Body
 	Description.Text = config.Description
 	Description.TextColor3 = Theme.Colors.Text
@@ -1709,9 +1712,7 @@ function Library.new(config)
 			Icon.ImageTransparency = 0
 			Twen:Create(Icon,TweenInfo2,{ImageTransparency = 0}):Play();
 		else
-			Icon.ImageTransparency = 1
-			Icon.Size = UDim2.new(0, 0, 0, 0)
-			ContentLayout.Padding = UDim.new(0, 0)
+			Icon.Parent = nil -- Remove from layout entirely
 		end
 
 		UICorner_2.CornerRadius = UDim.new(0, 3)
