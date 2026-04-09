@@ -637,38 +637,74 @@ function Library.new(config)
 		line.ZIndex = 510
 	end
 
-	-- ▂▂▂ PIXAR TEXT: RUAJADHUB ▂▂▂
+	-- ▂▂▂ PIXAR TEXT: RUAJADHUB (3-Wave Premium Animation) ▂▂▂
 	local PixarTextContainer = Instance.new("Frame")
 	PixarTextContainer.Parent = LoadScreen
 	PixarTextContainer.BackgroundTransparency = 1
 	PixarTextContainer.Size = UDim2.new(1, 0, 1, 0)
 	PixarTextContainer.ZIndex = 535
-	
-	local LeftText = Instance.new("TextLabel")
-	LeftText.Parent = PixarTextContainer
-	LeftText.AnchorPoint = Vector2.new(0.5, 0.5)
-	LeftText.Position = UDim2.new(-0.3, 0, 0.5, 0) 
-	LeftText.Size = UDim2.new(0, 240, 0, 80)
-	LeftText.BackgroundTransparency = 1
-	LeftText.Font = Enum.Font.GothamBlack
-	LeftText.Text = "RUAJA"
-	LeftText.TextColor3 = Color3.fromRGB(255, 255, 255)
-	LeftText.TextScaled = true
-	LeftText.Rotation = -720 
-	LeftText.ZIndex = 536
-	
-	local RightText = Instance.new("TextLabel")
-	RightText.Parent = PixarTextContainer
-	RightText.AnchorPoint = Vector2.new(0.5, 0.5)
-	RightText.Position = UDim2.new(1.3, 0, 0.5, 0) 
-	RightText.Size = UDim2.new(0, 190, 0, 80)
-	RightText.BackgroundTransparency = 1
-	RightText.Font = Enum.Font.GothamBlack
-	RightText.Text = "DHUB"
-	RightText.TextColor3 = Color3.fromHex("#c542cb")
-	RightText.TextScaled = true
-	RightText.Rotation = 720 
-	RightText.ZIndex = 536
+
+	local fullWord = "RUAJADHUB"
+	local letterW = 46
+	local letterH = 80
+	local totalW = #fullWord * letterW
+	local originX = -totalW / 2
+
+	-- Wave groups: "left" = from left, "right" = from right, "drop" = from top
+	local waveMap = {
+		[1] = "left",  -- R
+		[2] = "left",  -- U
+		[3] = "left",  -- A
+		[4] = "drop_tl", -- J (top-left corner)
+		[5] = "drop_tc", -- A (top-center)
+		[6] = "drop_tr", -- D (top-right corner)
+		[7] = "right", -- H
+		[8] = "right", -- U
+		[9] = "right", -- B
+	}
+
+	local Letters = {}
+	for i = 1, #fullWord do
+		local ch = fullWord:sub(i, i)
+		local wave = waveMap[i]
+		local finalXOff = originX + (i - 1) * letterW + letterW / 2
+
+		local lbl = Instance.new("TextLabel")
+		lbl.Name = "Letter_" .. ch .. i
+		lbl.Parent = PixarTextContainer
+		lbl.AnchorPoint = Vector2.new(0.5, 0.5)
+		lbl.Size = UDim2.new(0, letterW, 0, letterH)
+		lbl.BackgroundTransparency = 1
+		lbl.Font = Enum.Font.GothamBlack
+		lbl.Text = ch
+		lbl.TextScaled = true
+		lbl.ZIndex = 536
+		lbl.TextTransparency = 1
+
+		if wave == "left" then
+			lbl.Position = UDim2.new(0.5, finalXOff - 700, 0.5, math.random(-15, 15))
+			lbl.TextColor3 = Color3.fromRGB(255, 255, 255)
+			lbl.Rotation = math.random(-35, -15)
+		elseif wave == "right" then
+			lbl.Position = UDim2.new(0.5, finalXOff + 700, 0.5, math.random(-15, 15))
+			lbl.TextColor3 = Color3.fromHex("#c542cb")
+			lbl.Rotation = math.random(15, 35)
+		elseif wave == "drop_tl" then
+			lbl.Position = UDim2.new(0.15, 0, -0.15, 0)
+			lbl.TextColor3 = Color3.fromHex("#e06fff")
+			lbl.Rotation = -45
+		elseif wave == "drop_tc" then
+			lbl.Position = UDim2.new(0.5, 0, -0.2, 0)
+			lbl.TextColor3 = Color3.fromHex("#f985ff")
+			lbl.Rotation = 0
+		elseif wave == "drop_tr" then
+			lbl.Position = UDim2.new(0.85, 0, -0.15, 0)
+			lbl.TextColor3 = Color3.fromHex("#e06fff")
+			lbl.Rotation = 45
+		end
+
+		Letters[i] = { label = lbl, finalX = finalXOff, wave = wave }
+	end
 
 	local GlowBehind = Instance.new("ImageLabel")
 	GlowBehind.Parent = PixarTextContainer
@@ -736,19 +772,12 @@ function Library.new(config)
 			task.wait(0.06)
 		end
 
-		-- ═══ PHASE 3: PIXAR ROLL IN (0.7s) ═══
-		-- Both texts roll into the center with a bounce effect
-		Twen:Create(LeftText, TI(1.2, Enum.EasingStyle.Bounce, Enum.EasingDirection.Out), {
-			Position = UDim2.new(0.5, -115, 0.5, 0), 
-			Rotation = -12 -- Tilted back slightly
-		}):Play()
-		
-		Twen:Create(RightText, TI(1.2, Enum.EasingStyle.Bounce, Enum.EasingDirection.Out), {
-			Position = UDim2.new(0.5, 95, 0.5, 0), 
-			Rotation = 8 -- Tilted forward
-		}):Play()
+		-- ═══ PHASE 3A: WAVE 1 — RUA (left) + HUB (right) staggered ═══
+		local wave1Left  = {1, 2, 3}  -- R, U, A
+		local wave1Right = {7, 8, 9}  -- H, U, B
+		local wave2Drop  = {4, 5, 6}  -- J, A, D
 
-		-- Floating particles
+		-- Floating particles (start early)
 		task.spawn(function()
 			for _, dot in ipairs(Particles) do
 				task.spawn(function()
@@ -766,43 +795,110 @@ function Library.new(config)
 			end
 		end)
 
-		task.wait(1.4)
+		-- Wave 1: R U A slide in from left, staggered
+		for order, idx in ipairs(wave1Left) do
+			local data = Letters[idx]
+			task.delay((order - 1) * 0.1, function()
+				Twen:Create(data.label, TI(0.15, Enum.EasingStyle.Quint), {TextTransparency = 0}):Play()
+				Twen:Create(data.label, TI(0.7, Enum.EasingStyle.Quint, Enum.EasingDirection.Out), {
+					Position = UDim2.new(0.5, data.finalX, 0.5, 0),
+					Rotation = math.random(-6, -2)
+				}):Play()
+			end)
+		end
 
-		-- ═══ PHASE 4: COMBINE & GLITCH COLLISION (2.1s) ═══
-		-- Snap together cleanly
-		Twen:Create(LeftText, TI(0.3, Enum.EasingStyle.Back, Enum.EasingDirection.Out), {
-			Position = UDim2.new(0.5, -107, 0.5, 0), -- Exact align
+		-- Wave 1: H U B slide in from right, staggered (reverse order: B first, then U, H)
+		for order, idx in ipairs(wave1Right) do
+			local data = Letters[idx]
+			local reverseOrder = #wave1Right - (order - 1)
+			task.delay((reverseOrder - 1) * 0.1, function()
+				Twen:Create(data.label, TI(0.15, Enum.EasingStyle.Quint), {TextTransparency = 0}):Play()
+				Twen:Create(data.label, TI(0.7, Enum.EasingStyle.Quint, Enum.EasingDirection.Out), {
+					Position = UDim2.new(0.5, data.finalX, 0.5, 0),
+					Rotation = math.random(2, 6)
+				}):Play()
+			end)
+		end
+
+		task.wait(1.0) -- Wait for Wave 1 to settle (RUA___HUB with gap)
+
+		-- ═══ PHASE 3B: WAVE 2 — J A D drop from top corners/center ═══
+		-- Mini flash to signal incoming letters
+		Twen:Create(WhiteFlash, TI(0.04), {BackgroundTransparency = 0.75}):Play()
+		task.wait(0.05)
+		Twen:Create(WhiteFlash, TI(0.1, Enum.EasingStyle.Quint), {BackgroundTransparency = 1}):Play()
+
+		-- J drops from top-left
+		local jData = Letters[4]
+		Twen:Create(jData.label, TI(0.12, Enum.EasingStyle.Quint), {TextTransparency = 0}):Play()
+		Twen:Create(jData.label, TI(0.55, Enum.EasingStyle.Bounce, Enum.EasingDirection.Out), {
+			Position = UDim2.new(0.5, jData.finalX, 0.5, 0),
 			Rotation = 0
 		}):Play()
-		Twen:Create(RightText, TI(0.3, Enum.EasingStyle.Back, Enum.EasingDirection.Out), {
-			Position = UDim2.new(0.5, 93, 0.5, 0),
-			Rotation = 0
-		}):Play()
-		
-		-- Quick collision micro-flash and glow
-		Twen:Create(WhiteFlash, TI(0.05), {BackgroundTransparency = 0.6}):Play()
-		Twen:Create(GlowBehind, TI(0.4, Enum.EasingStyle.Quint), {Size = UDim2.new(0, 700, 0, 700), ImageTransparency = 0.4}):Play()
-		
+
+		-- D drops from top-right (slight delay)
+		task.delay(0.08, function()
+			local dData = Letters[6]
+			Twen:Create(dData.label, TI(0.12, Enum.EasingStyle.Quint), {TextTransparency = 0}):Play()
+			Twen:Create(dData.label, TI(0.55, Enum.EasingStyle.Bounce, Enum.EasingDirection.Out), {
+				Position = UDim2.new(0.5, dData.finalX, 0.5, 0),
+				Rotation = 0
+			}):Play()
+		end)
+
+		-- A drops from top-center (last, completing the word)
+		task.delay(0.18, function()
+			local aData = Letters[5]
+			Twen:Create(aData.label, TI(0.12, Enum.EasingStyle.Quint), {TextTransparency = 0}):Play()
+			Twen:Create(aData.label, TI(0.6, Enum.EasingStyle.Bounce, Enum.EasingDirection.Out), {
+				Position = UDim2.new(0.5, aData.finalX, 0.5, 0),
+				Rotation = 0
+			}):Play()
+		end)
+
+		task.wait(0.9) -- Wait for JAD to land
+
+		-- ═══ PHASE 4: SNAP & GLOW — All letters align perfectly ═══
+		for _, data in ipairs(Letters) do
+			Twen:Create(data.label, TI(0.25, Enum.EasingStyle.Back, Enum.EasingDirection.Out), {
+				Position = UDim2.new(0.5, data.finalX, 0.5, 0),
+				Rotation = 0
+			}):Play()
+			-- All letters transition to unified white glow
+			Twen:Create(data.label, TI(0.3, Enum.EasingStyle.Quint), {
+				TextColor3 = Color3.fromRGB(255, 255, 255)
+			}):Play()
+		end
+
+		-- Collision flash + glow
+		Twen:Create(WhiteFlash, TI(0.05), {BackgroundTransparency = 0.5}):Play()
+		Twen:Create(GlowBehind, TI(0.5, Enum.EasingStyle.Quint), {Size = UDim2.new(0, 700, 0, 700), ImageTransparency = 0.35}):Play()
 		task.wait(0.06)
-		Twen:Create(WhiteFlash, TI(0.15, Enum.EasingStyle.Quint), {BackgroundTransparency = 1}):Play()
-		
-		-- Brief pause for the user to read "RUAJADHUB"
-		task.wait(0.8)
+		Twen:Create(WhiteFlash, TI(0.2, Enum.EasingStyle.Quint), {BackgroundTransparency = 1}):Play()
 
-		-- ═══ PHASE 5: ZOOM IN MASSIVELY & GUI POP (3.0s total) ═══
+		-- Recolor to final branding: RUAJAD = white, HUB = purple
+		task.wait(0.15)
+		for i = 7, 9 do
+			Twen:Create(Letters[i].label, TI(0.4, Enum.EasingStyle.Quint), {
+				TextColor3 = Color3.fromHex("#c542cb")
+			}):Play()
+		end
+
+		-- Brief pause to read "RUAJADHUB"
+		task.wait(0.7)
+
+		-- ═══ PHASE 5: ZOOM EXPLODE & GUI POP ═══
 		LoadingDone = true
 
-		-- Text zooms into camera infinitely
-		Twen:Create(LeftText, TI(0.6, Enum.EasingStyle.Back, Enum.EasingDirection.In), {
-			Position = UDim2.new(0.5, -600, 0.5, 0),
-			Size = UDim2.new(0, 1100, 0, 400),
-			TextTransparency = 1
-		}):Play()
-		Twen:Create(RightText, TI(0.6, Enum.EasingStyle.Back, Enum.EasingDirection.In), {
-			Position = UDim2.new(0.5, 600, 0.5, 0),
-			Size = UDim2.new(0, 900, 0, 400),
-			TextTransparency = 1
-		}):Play()
+		-- Each letter explodes outward from center
+		for _, data in ipairs(Letters) do
+			local spreadX = data.finalX * 4
+			Twen:Create(data.label, TI(0.6, Enum.EasingStyle.Back, Enum.EasingDirection.In), {
+				Position = UDim2.new(0.5, spreadX, 0.5, 0),
+				Size = UDim2.new(0, letterW * 4, 0, letterH * 4),
+				TextTransparency = 1
+			}):Play()
+		end
 
 		Twen:Create(GlowBehind, TI(0.5, Enum.EasingStyle.Quint), {Size = UDim2.new(0, 1500, 0, 1500), ImageTransparency = 1}):Play()
 
@@ -904,14 +1000,16 @@ function Library.new(config)
 	ProfileFrame.Parent = MainFrame
 	ProfileFrame.BackgroundColor3 = Color3.fromRGB(0, 0, 0)
 	ProfileFrame.BackgroundTransparency = 1.000
-	ProfileFrame.Position = UDim2.new(0, 15, 0, 12)
-	ProfileFrame.Size = UDim2.new(0, 150, 0, 45)
+	ProfileFrame.Position = UDim2.new(0, 12, 0, 8)
+	ProfileFrame.Size = UDim2.new(0, 55, 0, 55)
 	
 	AvatarImage.Name = "AvatarImage"
 	AvatarImage.Parent = ProfileFrame
 	AvatarImage.BackgroundColor3 = Color3.fromRGB(40, 40, 40)
 	AvatarImage.BackgroundTransparency = 0.5
 	AvatarImage.Size = UDim2.new(0, 45, 0, 45)
+	AvatarImage.Position = UDim2.new(0.5, 0, 0, 0)
+	AvatarImage.AnchorPoint = Vector2.new(0.5, 0)
 	AvatarMask.CornerRadius = UDim.new(1, 0)
 	AvatarMask.Parent = AvatarImage
 	task.spawn(function()
@@ -923,26 +1021,28 @@ function Library.new(config)
 	NameText.Name = "NameText"
 	NameText.Parent = ProfileFrame
 	NameText.BackgroundTransparency = 1.000
-	NameText.Position = UDim2.new(0, 55, 0, 8)
-	NameText.Size = UDim2.new(1, -55, 0, 15)
-	NameText.Font = Theme.Fonts.Title
+	NameText.Position = UDim2.new(0, 0, 0, 47)
+	NameText.Size = UDim2.new(1, 0, 0, 8)
+	NameText.Font = Theme.Fonts.Body
 	NameText.Text = LocalPlayer.DisplayName
 	NameText.TextColor3 = Theme.Colors.Text
 	NameText.TextTransparency = 0.1
-	NameText.TextSize = 14.000
-	NameText.TextXAlignment = Enum.TextXAlignment.Left
+	NameText.TextSize = 10.000
+	NameText.TextXAlignment = Enum.TextXAlignment.Center
+	NameText.TextTruncate = Enum.TextTruncate.AtEnd
     
 	NameGreeting.Name = "NameGreeting"
 	NameGreeting.Parent = ProfileFrame
 	NameGreeting.BackgroundTransparency = 1.000
-	NameGreeting.Position = UDim2.new(0, 55, 0, 25)
-	NameGreeting.Size = UDim2.new(1, -55, 0, 12)
+	NameGreeting.Position = UDim2.new(0, 0, 0, 54)
+	NameGreeting.Size = UDim2.new(1, 0, 0, 8)
 	NameGreeting.Font = Theme.Fonts.Body
 	NameGreeting.Text = "@" .. LocalPlayer.Name
 	NameGreeting.TextColor3 = Theme.Colors.Text
 	NameGreeting.TextTransparency = 0.4
-	NameGreeting.TextSize = 12.000
-	NameGreeting.TextXAlignment = Enum.TextXAlignment.Left
+	NameGreeting.TextSize = 9.000
+	NameGreeting.TextXAlignment = Enum.TextXAlignment.Center
+	NameGreeting.TextTruncate = Enum.TextTruncate.AtEnd
 
 	Title.Name = "Title"
 	Title.Parent = MainFrame
@@ -1609,7 +1709,9 @@ function Library.new(config)
 			Icon.ImageTransparency = 0
 			Twen:Create(Icon,TweenInfo2,{ImageTransparency = 0}):Play();
 		else
-			Icon.Visible = false
+			Icon.ImageTransparency = 1
+			Icon.Size = UDim2.new(0, 0, 0, 0)
+			ContentLayout.Padding = UDim.new(0, 0)
 		end
 
 		UICorner_2.CornerRadius = UDim.new(0, 3)
