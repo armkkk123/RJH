@@ -1053,13 +1053,13 @@ function Library.new(config)
 	Title.BackgroundTransparency = 1.000
 	Title.BorderColor3 = Color3.fromRGB(0, 0, 0)
 	Title.BorderSizePixel = 0
-	Title.Position = UDim2.new(0, 175, 0, 12)
-	Title.Size = UDim2.new(1, -250, 0, 28)
+	Title.Position = UDim2.new(0, 175, 0, 16)
+	Title.Size = UDim2.new(1, -250, 0, 32)
 	Title.Font = Theme.Fonts.Title
 	Title.Text = config.Title
 	Title.TextColor3 = Theme.Colors.Text
 	Title.TextScaled = false
-	Title.TextSize = 17.000
+	Title.TextSize = 19.000
 	Title.TextWrapped = true
 	Title.TextXAlignment = Enum.TextXAlignment.Left
 	Title.TextTransparency = 1;
