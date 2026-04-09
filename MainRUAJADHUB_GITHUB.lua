@@ -1000,14 +1000,14 @@ function Library.new(config)
 	ProfileFrame.Parent = MainFrame
 	ProfileFrame.BackgroundColor3 = Color3.fromRGB(0, 0, 0)
 	ProfileFrame.BackgroundTransparency = 1.000
-	ProfileFrame.Position = UDim2.new(0, 12, 0, 8)
-	ProfileFrame.Size = UDim2.new(0, 55, 0, 55)
+	ProfileFrame.Position = UDim2.new(0, 10, 0, 6)
+	ProfileFrame.Size = UDim2.new(0, 65, 0, 70)
 	
 	AvatarImage.Name = "AvatarImage"
 	AvatarImage.Parent = ProfileFrame
 	AvatarImage.BackgroundColor3 = Color3.fromRGB(40, 40, 40)
 	AvatarImage.BackgroundTransparency = 0.5
-	AvatarImage.Size = UDim2.new(0, 45, 0, 45)
+	AvatarImage.Size = UDim2.new(0, 42, 0, 42)
 	AvatarImage.Position = UDim2.new(0.5, 0, 0, 0)
 	AvatarImage.AnchorPoint = Vector2.new(0.5, 0)
 	AvatarMask.CornerRadius = UDim.new(1, 0)
@@ -1021,26 +1021,26 @@ function Library.new(config)
 	NameText.Name = "NameText"
 	NameText.Parent = ProfileFrame
 	NameText.BackgroundTransparency = 1.000
-	NameText.Position = UDim2.new(0, 0, 0, 47)
-	NameText.Size = UDim2.new(1, 0, 0, 8)
+	NameText.Position = UDim2.new(0, 0, 0, 44)
+	NameText.Size = UDim2.new(1, 0, 0, 14)
 	NameText.Font = Theme.Fonts.Body
 	NameText.Text = LocalPlayer.DisplayName
 	NameText.TextColor3 = Theme.Colors.Text
 	NameText.TextTransparency = 0.1
-	NameText.TextSize = 10.000
+	NameText.TextSize = 11.000
 	NameText.TextXAlignment = Enum.TextXAlignment.Center
 	NameText.TextTruncate = Enum.TextTruncate.AtEnd
     
 	NameGreeting.Name = "NameGreeting"
 	NameGreeting.Parent = ProfileFrame
 	NameGreeting.BackgroundTransparency = 1.000
-	NameGreeting.Position = UDim2.new(0, 0, 0, 54)
-	NameGreeting.Size = UDim2.new(1, 0, 0, 8)
+	NameGreeting.Position = UDim2.new(0, 0, 0, 58)
+	NameGreeting.Size = UDim2.new(1, 0, 0, 12)
 	NameGreeting.Font = Theme.Fonts.Body
 	NameGreeting.Text = "@" .. LocalPlayer.Name
 	NameGreeting.TextColor3 = Theme.Colors.Text
 	NameGreeting.TextTransparency = 0.4
-	NameGreeting.TextSize = 9.000
+	NameGreeting.TextSize = 10.000
 	NameGreeting.TextXAlignment = Enum.TextXAlignment.Center
 	NameGreeting.TextTruncate = Enum.TextTruncate.AtEnd
 
@@ -1640,7 +1640,7 @@ function Library.new(config)
 		cfg = Config(cfg,{
 			Title = "Example",
 			Description = "Tab: "..tostring(#WindowTable.Tabs + 1),
-			Icon = "rbxassetid://7733964640"
+			Icon = ""
 		});
 
 		local TabTable = {};
