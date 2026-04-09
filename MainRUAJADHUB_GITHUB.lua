@@ -990,6 +990,29 @@ function Library.new(config)
 
 	Twen:Create(MainDropShadow,TweenInfo2,{ImageTransparency = 0.6}):Play();
 
+	-- ▂▂ HEADER BACKGROUND (Profile + Title + Tabs area) ▂▂▂
+	local HeaderBg = Instance.new("Frame")
+	HeaderBg.Name = "HeaderBg"
+	HeaderBg.Parent = MainFrame
+	HeaderBg.BackgroundColor3 = Color3.fromRGB(30, 20, 40)
+	HeaderBg.BackgroundTransparency = 0.5
+	HeaderBg.BorderColor3 = Color3.fromRGB(0, 0, 0)
+	HeaderBg.BorderSizePixel = 0
+	HeaderBg.Position = UDim2.new(0.02, 0, 0, 2)
+	HeaderBg.Size = UDim2.new(0.96, 0, 0, 108)
+	HeaderBg.ZIndex = 0
+	HeaderBg.Active = false
+
+	local HeaderBgCorner = Instance.new("UICorner")
+	HeaderBgCorner.CornerRadius = UDim.new(0, 6)
+	HeaderBgCorner.Parent = HeaderBg
+
+	local HeaderBgStroke = Instance.new("UIStroke")
+	HeaderBgStroke.Color = Color3.fromRGB(80, 60, 100)
+	HeaderBgStroke.Thickness = 1
+	HeaderBgStroke.Transparency = 0.6
+	HeaderBgStroke.Parent = HeaderBg
+
 	local ProfileFrame = Instance.new("Frame")
 	local AvatarImage = Instance.new("ImageLabel")
 	local AvatarMask = Instance.new("UICorner")
@@ -1096,28 +1119,6 @@ function Library.new(config)
 		UIGradient_2.Transparency = NumberSequence.new{NumberSequenceKeypoint.new(0.00, 0.00), NumberSequenceKeypoint.new(0.75, 0.27), NumberSequenceKeypoint.new(1.00, 1.00)}
 		UIGradient_2.Parent = Description
 	end
-
-	-- ▂▂ HEADER BACKGROUND (Profile + Title + Tabs area) ▂▂▂
-	local HeaderBg = Instance.new("Frame")
-	HeaderBg.Name = "HeaderBg"
-	HeaderBg.Parent = MainFrame
-	HeaderBg.BackgroundColor3 = Color3.fromRGB(30, 20, 40)
-	HeaderBg.BackgroundTransparency = 0.5
-	HeaderBg.BorderColor3 = Color3.fromRGB(0, 0, 0)
-	HeaderBg.BorderSizePixel = 0
-	HeaderBg.Position = UDim2.new(0.02, 0, 0, 2)
-	HeaderBg.Size = UDim2.new(0.96, 0, 0, 108)
-	HeaderBg.ZIndex = 1
-
-	local HeaderBgCorner = Instance.new("UICorner")
-	HeaderBgCorner.CornerRadius = UDim.new(0, 6)
-	HeaderBgCorner.Parent = HeaderBg
-
-	local HeaderBgStroke = Instance.new("UIStroke")
-	HeaderBgStroke.Color = Color3.fromRGB(80, 60, 100)
-	HeaderBgStroke.Thickness = 1
-	HeaderBgStroke.Transparency = 0.6
-	HeaderBgStroke.Parent = HeaderBg
 
 	BlockFrame1.Name = "BlockFrame1"
 	BlockFrame1.Parent = MainFrame
