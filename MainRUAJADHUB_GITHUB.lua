@@ -1000,7 +1000,8 @@ function Library.new(config)
 	ProfileFrame.Parent = MainFrame
 	ProfileFrame.BackgroundColor3 = Color3.fromRGB(0, 0, 0)
 	ProfileFrame.BackgroundTransparency = 1.000
-	ProfileFrame.Position = UDim2.new(0, 8, 0, 5)
+	ProfileFrame.Position = UDim2.new(0.5, 0, 0, 5)
+	ProfileFrame.AnchorPoint = Vector2.new(0.5, 0)
 	ProfileFrame.Size = UDim2.new(0, 90, 0, 68)
 	ProfileFrame.ClipsDescendants = false
 	
@@ -1053,15 +1054,15 @@ function Library.new(config)
 	Title.BackgroundTransparency = 1.000
 	Title.BorderColor3 = Color3.fromRGB(0, 0, 0)
 	Title.BorderSizePixel = 0
-	Title.Position = UDim2.new(0, 100, 0, 12)
-	Title.Size = UDim2.new(1, -175, 0, 24)
+	Title.Position = UDim2.new(0, 110, 0, 12)
+	Title.Size = UDim2.new(1, -220, 0, 24)
 	Title.Font = Theme.Fonts.Title
 	Title.Text = config.Title
 	Title.TextColor3 = Theme.Colors.Text
 	Title.TextScaled = false
 	Title.TextSize = 15.000
 	Title.TextWrapped = true
-	Title.TextXAlignment = Enum.TextXAlignment.Left
+	Title.TextXAlignment = Enum.TextXAlignment.Center
 	Title.TextTransparency = 1;
 
 	Twen:Create(Title,TweenInfo2,{TextTransparency = 0}):Play();
@@ -1076,8 +1077,8 @@ function Library.new(config)
 	Description.BackgroundTransparency = 1.000
 	Description.BorderColor3 = Color3.fromRGB(0, 0, 0)
 	Description.BorderSizePixel = 0
-	Description.Position = UDim2.new(0, 100, 0, 36)
-	Description.Size = UDim2.new(1, -175, 0, 28)
+	Description.Position = UDim2.new(0, 110, 0, 36)
+	Description.Size = UDim2.new(1, -220, 0, 28)
 	Description.Font = Theme.Fonts.Body
 	Description.Text = config.Description
 	Description.TextColor3 = Theme.Colors.Text
@@ -1085,7 +1086,7 @@ function Library.new(config)
 	Description.TextSize = 14
 	Description.TextTransparency = 1
 	Description.TextWrapped = true
-	Description.TextXAlignment = Enum.TextXAlignment.Left
+	Description.TextXAlignment = Enum.TextXAlignment.Center
 	Twen:Create(Description,TweenInfo2,{TextTransparency = 0.4}):Play();
 
 	UIGradient_2.Rotation = 90
