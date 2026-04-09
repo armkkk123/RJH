@@ -307,7 +307,7 @@ function Library.new(config)
 
 	config = Config(config,{
 		Title = "UI Library",
-		Description = "discord.gg/BH6pE7jesa",
+		Description = "",
 		Keybind = Enum.KeyCode.LeftControl,
 		Logo = "rbxassetid://108548419189473",
 		Size = defaultSize
@@ -1070,27 +1070,29 @@ function Library.new(config)
 	UIGradient.Transparency = NumberSequence.new{NumberSequenceKeypoint.new(0.00, 0.00), NumberSequenceKeypoint.new(0.75, 0.27), NumberSequenceKeypoint.new(1.00, 1.00)}
 	UIGradient.Parent = Title
 
-	Description.Name = "Description"
-	Description.Parent = MainFrame
-	Description.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
-	Description.BackgroundTransparency = 1.000
-	Description.BorderColor3 = Color3.fromRGB(0, 0, 0)
-	Description.BorderSizePixel = 0
-	Description.Position = UDim2.new(0, 175, 0, 36)
-	Description.Size = UDim2.new(1, -250, 0, 28)
-	Description.Font = Theme.Fonts.Body
-	Description.Text = config.Description
-	Description.TextColor3 = Theme.Colors.Text
-	Description.TextScaled = false
-	Description.TextSize = 14
-	Description.TextTransparency = 1
-	Description.TextWrapped = true
-	Description.TextXAlignment = Enum.TextXAlignment.Left
-	Twen:Create(Description,TweenInfo2,{TextTransparency = 0.4}):Play();
+	if config.Description and config.Description ~= "" then
+		Description.Name = "Description"
+		Description.Parent = MainFrame
+		Description.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+		Description.BackgroundTransparency = 1.000
+		Description.BorderColor3 = Color3.fromRGB(0, 0, 0)
+		Description.BorderSizePixel = 0
+		Description.Position = UDim2.new(0, 175, 0, 36)
+		Description.Size = UDim2.new(1, -250, 0, 28)
+		Description.Font = Theme.Fonts.Body
+		Description.Text = config.Description
+		Description.TextColor3 = Theme.Colors.Text
+		Description.TextScaled = false
+		Description.TextSize = 14
+		Description.TextTransparency = 1
+		Description.TextWrapped = true
+		Description.TextXAlignment = Enum.TextXAlignment.Left
+		Twen:Create(Description,TweenInfo2,{TextTransparency = 0.4}):Play();
 
-	UIGradient_2.Rotation = 90
-	UIGradient_2.Transparency = NumberSequence.new{NumberSequenceKeypoint.new(0.00, 0.00), NumberSequenceKeypoint.new(0.75, 0.27), NumberSequenceKeypoint.new(1.00, 1.00)}
-	UIGradient_2.Parent = Description
+		UIGradient_2.Rotation = 90
+		UIGradient_2.Transparency = NumberSequence.new{NumberSequenceKeypoint.new(0.00, 0.00), NumberSequenceKeypoint.new(0.75, 0.27), NumberSequenceKeypoint.new(1.00, 1.00)}
+		UIGradient_2.Parent = Description
+	end
 
 	BlockFrame1.Name = "BlockFrame1"
 	BlockFrame1.Parent = MainFrame
