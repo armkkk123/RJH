@@ -990,16 +990,16 @@ function Library.new(config)
 
 	Twen:Create(MainDropShadow,TweenInfo2,{ImageTransparency = 0.6}):Play();
 
-	-- ▂▂ HEADER BACKGROUND (Profile + Title + Tabs area) ▂▂▂
+	-- ▂▂ HEADER BACKGROUND (Profile + Title only, NOT tabs) ▂▂▂
 	local HeaderBg = Instance.new("Frame")
 	HeaderBg.Name = "HeaderBg"
 	HeaderBg.Parent = MainFrame
 	HeaderBg.BackgroundColor3 = Color3.fromRGB(30, 20, 40)
-	HeaderBg.BackgroundTransparency = 0.5
+	HeaderBg.BackgroundTransparency = 0.55
 	HeaderBg.BorderColor3 = Color3.fromRGB(0, 0, 0)
 	HeaderBg.BorderSizePixel = 0
 	HeaderBg.Position = UDim2.new(0.02, 0, 0, 2)
-	HeaderBg.Size = UDim2.new(0.96, 0, 0, 108)
+	HeaderBg.Size = UDim2.new(0.96, 0, 0, 68)
 	HeaderBg.ZIndex = 0
 	HeaderBg.Active = false
 
@@ -1026,7 +1026,6 @@ function Library.new(config)
 	ProfileFrame.Position = UDim2.new(0, 8, 0, 5)
 	ProfileFrame.Size = UDim2.new(0, 90, 0, 68)
 	ProfileFrame.ClipsDescendants = false
-	ProfileFrame.ZIndex = 2
 	
 	AvatarImage.Name = "AvatarImage"
 	AvatarImage.Parent = ProfileFrame
@@ -1086,8 +1085,7 @@ function Library.new(config)
 	Title.TextSize = 19.000
 	Title.TextWrapped = true
 	Title.TextXAlignment = Enum.TextXAlignment.Left
-	Title.TextTransparency = 1
-	Title.ZIndex = 2;
+	Title.TextTransparency = 1;
 
 	Twen:Create(Title,TweenInfo2,{TextTransparency = 0}):Play();
 
@@ -1112,7 +1110,6 @@ function Library.new(config)
 		Description.TextTransparency = 1
 		Description.TextWrapped = true
 		Description.TextXAlignment = Enum.TextXAlignment.Left
-		Description.ZIndex = 2
 		Twen:Create(Description,TweenInfo2,{TextTransparency = 0.4}):Play();
 
 		UIGradient_2.Rotation = 90
@@ -1166,7 +1163,7 @@ function Library.new(config)
 	BlockFrame2.BorderSizePixel = 0
 	BlockFrame2.Position = UDim2.new(0.5, 0, 0, 110)
 	BlockFrame2.Size = UDim2.new(0.96, 0, 0, 1)
-	BlockFrame2.ZIndex = 2
+	BlockFrame2.ZIndex = 3
 	Twen:Create(BlockFrame2,TweenInfo2,{BackgroundTransparency = 0.8}):Play();
 
 	UICorner_5.CornerRadius = UDim.new(0.5, 0)
@@ -1187,7 +1184,6 @@ function Library.new(config)
 	TabButtonFrame.Position = UDim2.new(0.5, 0, 0, 75) 
 	TabButtonFrame.Size = UDim2.new(0.92, 0, 0, 32)
 	TabButtonFrame.AnchorPoint = Vector2.new(0.5, 0) 
-	TabButtonFrame.ZIndex = 2
 	Twen:Create(TabButtonFrame,TweenInfo2,{BackgroundTransparency = 0.5}):Play();
 
 	UICorner_6.CornerRadius = UDim.new(0, 4) 
