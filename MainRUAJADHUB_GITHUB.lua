@@ -940,8 +940,8 @@ function Library.new(config)
 	MainGradient.Parent = MainFrame
 	MainGradient.Rotation = 90
 	MainGradient.Color = ColorSequence.new({
-		ColorSequenceKeypoint.new(0, Color3.fromHex("#3a1a4a")),
-		ColorSequenceKeypoint.new(1, Color3.fromHex("#2a1035"))
+		ColorSequenceKeypoint.new(0, Color3.fromHex("#f985ff")),
+		ColorSequenceKeypoint.new(1, Color3.fromHex("#c542cb"))
 	})
 	MainFrame.Position = UDim2.new(0.5, 0, 0.5, 0)
 	MainFrame.Size = UDim2.fromOffset(config.Size.X.Offset,config.Size.Y.Offset)
@@ -952,7 +952,7 @@ function Library.new(config)
 		Library.GradientImage(MainFrame,color)
 	end
 
-	Twen:Create(MainFrame,TweenInfo1,{BackgroundTransparency = 0.15,Size = config.Size}):Play();
+	Twen:Create(MainFrame,TweenInfo1,{BackgroundTransparency = 0.4,Size = config.Size}):Play();
 
 	WindowTable.ElBlurUI = ElBlurSource.new(MainFrame);
 
